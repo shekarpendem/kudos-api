@@ -33,7 +33,7 @@ test {
 }
 
 String dockerHubUsernameProperty = findProperty('dockerHubUsername') ?: 'rthirumal1999'
-String imageName = "rthirumal1999/airforce-sample:$version"
+String imageName = "rthirumal1999/kudos-backend:$version"
 
 docker {
     name imageName
