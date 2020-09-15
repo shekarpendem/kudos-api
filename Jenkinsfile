@@ -12,8 +12,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // sh './gradlew test'
-                sh 'echo Skipping tests for the time being ...'
+                sh './gradlew test'
             }
         }
         stage('Build Docker image') {
