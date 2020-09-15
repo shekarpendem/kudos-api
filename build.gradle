@@ -6,7 +6,8 @@ plugins {
     id 'com.palantir.docker' version '0.25.0'
     id 'com.palantir.docker-run' version '0.25.0'
     id 'jp.classmethod.aws.cloudformation' version '0.41'
-    id "org.sonarqube" version '3.0'
+    //id "org.sonarqube" version '3.0'
+    id 'jacoco'
 }
 
 version = scmVersion.version
@@ -16,7 +17,7 @@ repositories {
     jcenter()
 }
 
-apply plugin: 'org.sonarqube'
+//apply plugin: 'org.sonarqube'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -33,7 +34,13 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
 }
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
 
 String dockerHubUsernameProperty = findProperty('dockerHubUsername') ?: 'rthirumal1999'
 String imageName = "rthirumal1999/kudos-backend:$version"
