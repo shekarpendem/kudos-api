@@ -28,14 +28,14 @@ public class Employee {
 		
 	}
 	
-	public Employee(String firstName, String lastName, String emailId) {
+	public Employee(long id, String firstName, String lastName, String emailId) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.emailId = emailId;
 	}
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public long getId() {
 		return id;
 	}
