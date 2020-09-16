@@ -25,7 +25,7 @@ import com.osi.kudos.app.model.Kudo;
 import com.osi.kudos.app.repository.EmployeeRepository;
 import com.osi.kudos.app.repository.KudoRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1")
 public class KudoController {
