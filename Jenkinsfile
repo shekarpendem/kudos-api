@@ -15,6 +15,9 @@ pipeline {
                 sh './gradlew test'
             }
         }
+        stage('Publish test results') {
+            junit '**/test-results/test/*.xml'
+        } 
         stage('Build Docker image') {
             steps {
                 sh './gradlew docker'
