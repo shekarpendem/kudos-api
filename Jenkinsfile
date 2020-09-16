@@ -25,8 +25,7 @@ pipeline {
 
         stage('SonarQube') {
             steps {
-                //sh './gradlew sonarqube -Dsonar.host.url=http://ec2-3-235-176-239.compute-1.amazonaws.com:9000/'
-                sh 'echo skipping for now'
+                sh './gradlew sonarqube'
             }
         }
 
