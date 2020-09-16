@@ -15,10 +15,17 @@ pipeline {
                 sh './gradlew test'
             }
         }
+
         stage('Publish JUnit Test Results') {
             steps {
                 sh 'find . -name "TEST-*.xml" -exec touch {} \\;'
                 junit '**/test-results/test/*.xml'
+            }
+        }
+
+        stage('SonarQube') {
+            steps {
+                sh './gradlew sonarqube'
             }
         }
 
@@ -48,7 +55,7 @@ pipeline {
                 sh './gradlew dockerPush -PdockerHubUsername=$DOCKER_HUB_LOGIN_USR'
             }
         }
-        
+
         stage('Deploy to AWS') {
             environment {
                 DOCKER_HUB_LOGIN = credentials('docker-hub')
