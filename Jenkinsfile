@@ -17,6 +17,7 @@ pipeline {
         }
         stage('Publish test results') {
             steps {
+                sh 'find . -name "TEST-*.xml" -exec touch {} \\;'
                 junit '**/test-results/test/*.xml'
             }
         } 
