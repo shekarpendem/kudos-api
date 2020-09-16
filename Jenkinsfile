@@ -15,17 +15,30 @@ pipeline {
                 sh './gradlew test'
             }
         }
-        stage('Publish test results') {
+        stage('Publish JUnit Test Results') {
             steps {
                 sh 'find . -name "TEST-*.xml" -exec touch {} \\;'
                 junit '**/test-results/test/*.xml'
             }
-        } 
+        }
+
+        stage('Publish Test Coverage Report') {
+         steps {
+           step([$class: 'JacocoPublisher', 
+                execPattern: '**/build/jacoco/*.exec',
+                classPattern: '**/build/classes',
+                sourcePattern: 'src/main/java',
+                exclusionPattern: 'src/test*'
+                ])
+            }
+        }
+
         stage('Build Docker image') {
             steps {
                 sh './gradlew docker'
             }
         }
+
         stage('Push Docker image') {
             environment {
                 DOCKER_HUB_LOGIN = credentials('docker-hub')
@@ -35,6 +48,7 @@ pipeline {
                 sh './gradlew dockerPush -PdockerHubUsername=$DOCKER_HUB_LOGIN_USR'
             }
         }
+        
         stage('Deploy to AWS') {
             environment {
                 DOCKER_HUB_LOGIN = credentials('docker-hub')
